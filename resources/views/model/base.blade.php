@@ -8,6 +8,7 @@
   <meta name="keywords" content="Achats en ligne Lubumbashi Magasin en ligne Lubumbashi Commerce électronique RDC Livraison à domicile Lubumbashi Offres spéciales Lubumbashi Produits locaux Lubumbashi Panier d'achat Lubumbashi Mode en ligne Lubumbashi Électronique Lubumbashi Vêtements Lubumbashi Meubles Lubumbashi Accessoires de maison Lubumbashi Supermarché en ligne Lubumbashi Deals du jour Lubumbashi Boutique virtuelle Lubumbashi Marques populaires Lubumbashi Vente flash Lubumbashi Promotions Lubumbashi Nouveautés Lubumbashi Comparaison de prix Lubumbashi Paiement sécurisé Lubumbashi Retours faciles Lubumbashi Service client réactif Lubumbashi Boutique de beauté Lubumbashi Épicerie en ligne Lubumbashi Gadget technologique Lubumbashi Articles pour la maison Lubumbashi Jouets pour enfants Lubumbashi Boutique de sport Lubumbashi Idées cadeaux Lubumbashi">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/css/themes/splide-default.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <title>@yield('title','lushishop')</title>
@@ -17,8 +18,7 @@
   <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10"
     data-te-navbar-ref>
     <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
-      LushiShop
-
+      Deale.com
       <div class="relative flex items-center">
         <a class="mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           href="#" id="searchIcon">
@@ -52,7 +52,7 @@
 
         <div class="relative" data-te-dropdown-ref>
           <a class="hidden-arrow mr-4 flex items-center text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-            href="#" id="dropdownMenuButton1" role="button" data-te-dropdown-toggle-ref aria-expanded="false">
+            href="{{Route('public.notif')}}" id="dropdownMenuButton1" role="button" data-te-dropdown-toggle-ref aria-expanded="false">
             <span class="[&>svg]:w-5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -124,46 +124,68 @@
             class="p-2 border border-gray-300 rounded-md w-full mb-4" name="q" />
           <button type="submit" class="p-2 bg-blue-500 text-white rounded-md">rechercher</button>
         </form>
-        <button type="button"
-          class="absolute bottom-4 right-4 p-2 bg-blue-500 text-white rounded-md" onclick="closeSearchModal()">
-          <i class="fas fa-times"></i>
-        </button>
+<button type="button" id="closeSearchModalBtn" class="absolute bottom-4 right-4 p-2 bg-blue-500 text-white rounded-md" onclick="closeSearchModal()">
+  <i class="fas fa-times"></i>
+</button>
       </div>
     </div>
   </div>
-  <script>
-    function openStore() {
-      alert("Option : Ouvrir une boutique");
+<script>
+  function openStore() {
+    alert("Option : Ouvrir une boutique");
+  }
+
+  function connectToStore() {
+    alert("Option : Se connecter à la boutique");
+  }
+
+  function openSearchModal() {
+    const searchModal = document.getElementById('searchModal');
+    searchModal.classList.remove('hidden');
+    if (window.innerWidth <= 600) {
+      searchModal.style.top = '-45%';
     }
+  }
 
-    function connectToStore() {
-      alert("Option : Se connecter à la boutique");
-    }
+  function closeSearchModal() {
+    document.getElementById('searchModal').classList.add('hidden');
+  }
 
-    function openSearchModal() {
-      document.getElementById('searchModal').classList.remove('hidden');
-      if (window.innerWidth <= 600) {
-        searchModal.style.top = '-45%';
-      }
-    }
+  document.addEventListener('DOMContentLoaded', function () {
+    // Cacher le panier dropdown au chargement de la page
+    document.getElementById('cartDropdown').classList.add('hidden');
 
-    function closeSearchModal() {
-      document.getElementById('searchModal').classList.add('hidden');
-    }
-
-    document.getElementById('searchIcon').addEventListener('click', openSearchModal);
-
-    window.addEventListener('click', function (event) {
-      if (event.target === document.getElementById('searchModal')) {
-        closeSearchModal();
-      }
-    });
-
-    
-    document.getElementById('cartIcon').addEventListener('click', function () {
+    // Écouteur d'événements pour le clic sur l'icône du panier
+    document.getElementById('cartIcon').addEventListener('click', function() {
       document.getElementById('cartDropdown').classList.toggle('hidden');
     });
-    
-  </script>
+
+    // Écouteur d'événements pour fermer le panier dropdown en cliquant à l'extérieur
+    window.addEventListener('click', function (event) {
+      const cartIcon = document.getElementById('cartIcon');
+      const cartDropdown = document.getElementById('cartDropdown');
+
+      // Vérifier si le clic est à l'extérieur de l'icône du panier
+      if (event.target !== cartIcon && !cartIcon.contains(event.target) && event.target !== cartDropdown && !cartDropdown.contains(event.target)) {
+        cartDropdown.classList.add('hidden'); // Fermer le panier 
+      }
+    });
+
+    // Écouteur d'événements pour le clic sur l'icône de recherche
+    document.getElementById('searchIcon').addEventListener('click', openSearchModal);
+
+    // Écouteur d'événements pour fermer la boîte modale de recherche
+    window.addEventListener('click', function (event) {
+      const searchIcon = document.getElementById('searchIcon');
+      const searchModal = document.getElementById('searchModal');
+      const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
+
+      // Vérifier si le clic est à l'extérieur de l'icône de recherche, du bouton de fermeture et de la boîte modale
+      if (event.target !== searchIcon && !searchIcon.contains(event.target) && event.target !== searchModal && !searchModal.contains(event.target) && event.target !== closeSearchModalBtn) {
+        closeSearchModal(); // Fermer la boîte modale de recherche
+      }
+    });
+  });
+</script>
 </body>
 </html>

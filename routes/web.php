@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [welcomeController::class,'index'])->name("welcome");
 Route::prefix('/')->controller(welcomeController::class)->name("public.")->group(function(){
     Route::get("product","product")->name("product");
+    Route::get("/notifications","notif")->name("notif");
 });

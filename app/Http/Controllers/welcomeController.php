@@ -14,4 +14,8 @@ class welcomeController extends Controller
      {
       return view("product");
      }
+     public function notif()
+     {
+      return view('notif');
+     }
 }
