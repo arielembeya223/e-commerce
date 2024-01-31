@@ -18,4 +18,16 @@ class welcomeController extends Controller
      {
       return view('notif');
      }
+     public function users()
+     {
+      return view("users");
+     }
+     public function connection()
+     {
+      return view("connectUsers");
+     }
+     public function boutique()
+     {
+      return view("newBoutique");
+     }
 }
