@@ -10,17 +10,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <title>@yield('title','lushishop')</title>
 </head>
-
 <body class="bg-zinc-50">
   <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10"
     data-te-navbar-ref>
     <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
       Deale.com
       <div class="relative flex items-center">
-        <a class="mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+        <a class=" no-loader mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           href="#" id="searchIcon">
           <span class="[&>svg]:w-5">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -32,7 +32,7 @@
         </a>
         <div class="dropdown relative mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           id="cartIcon">
-          <a href="#" class="dropdown-toggle">
+          <a href="#" class="dropdown-toggle no-loader">
             <span class="[&gt;svg]:w-5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -42,10 +42,10 @@
           </a>
           <div id="cartDropdown" class="dropdown-content origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <a href="{{Route('public.boutique')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
-                >Ouvrir une boutique</a>
+              <a href="{{Route('public.boutique')}}" class="  block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
+              >Ouvrir une boutique</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
-                onclick="connectToStore()">Se connecter à la boutique</a>
+                >Se connecter à la boutique</a>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
             <li>
               <a
                 class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-                href="#" data-te-dropdown-item-ref>Action</a>
+                href="{{Route('public.boutique')}}" data-te-dropdown-item-ref>ouvrir une boutique</a>
             </li>
             <li>
               <a
@@ -115,6 +115,75 @@
       </div>
     </div>
   </nav>
+  <div id="loader-container">
+    <div id="loader"></div>
+   </div>
+   <style>
+    /* style du loader  */
+#loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none; /* Cachez le loader par défaut */
+}
+
+#loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    </style>
+    <!-- scripte du loader -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          var loaderContainer = document.getElementById('loader-container');
+    
+          function showLoader() {
+              loaderContainer.style.display = 'flex';
+          }
+    
+          function hideLoader() {
+              loaderContainer.style.display = 'none';
+          }
+    
+          document.querySelectorAll('a').forEach(function (link) {
+              // Vérifier si le lien a la classe "no-loader"
+              if (!link.classList.contains('no-loader')) {
+                  link.addEventListener('click', showLoader);
+              }
+          });
+    
+          // Vous devrez également masquer le loader une fois que la nouvelle page est chargée.
+          window.addEventListener('load', hideLoader);
+    
+          // Écouteur d'événements pour détecter le changement de l'historique de navigation
+          window.addEventListener('popstate', hideLoader);
+    
+          // Écouteur d'événements pour détecter le chargement de la page depuis la cache
+          window.addEventListener('pageshow', function(event) {
+              // Si la page est chargée depuis la cache, masquer le loader
+              if (event.persisted) {
+                  hideLoader();
+              }
+          });
+      });
+    </script>
   @yield('content')
   <div id="searchModal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50">
     <div class="flex items-center justify-center h-full">

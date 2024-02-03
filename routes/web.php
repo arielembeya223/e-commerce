@@ -22,3 +22,6 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get('/connection','connection')->name('connection');
     Route::get("/boutique",'boutique')->name('boutique');
 });
+Route::fallback(function() {
+    return view('404');
+ });
