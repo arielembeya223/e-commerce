@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="fr">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +19,13 @@
     <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
       Deale.com
       <div class="relative flex items-center">
+        <a href="{{Route('welcome')}}" class="font-bold text-lg mr-3">
+          <span class="[&>svg]:w-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>            
+          </span>
+        </a>
         <a class=" no-loader mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           href="#" id="searchIcon">
           <span class="[&>svg]:w-5">
@@ -44,7 +50,7 @@
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               <a href="{{Route('public.boutique')}}" class="  block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
               >Ouvrir une boutique</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
+              <a href="{{Route('public.connectBoutique')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
                 >Se connecter à la boutique</a>
             </div>
           </div>
@@ -73,7 +79,7 @@
             <li>
               <a
                 class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-                href="#" data-te-dropdown-item-ref>Another action</a>
+                href="{{Route('public.connectBoutique')}}" data-te-dropdown-item-ref>se connecter a la boutique</a>
             </li>
             <li>
               <a

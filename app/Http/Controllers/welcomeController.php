@@ -30,4 +30,8 @@ class welcomeController extends Controller
      {
       return view("newBoutique");
      }
+     public function connectBoutique()
+     {
+      return view("connectBoutique");
+     }
 }

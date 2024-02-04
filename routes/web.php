@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dashbordController;
 use App\Http\Controllers\welcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get("/users",'users')->name("users");
     Route::get('/connection','connection')->name('connection');
     Route::get("/boutique",'boutique')->name('boutique');
+    Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
+});
+Route::prefix("/boutique")->controller(dashbordController::class)->name("private.")->group(function(){
+   Route::get("/nom","index");
 });
 Route::fallback(function() {
     return view('404');
