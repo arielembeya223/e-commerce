@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.1.1/luxon.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .scrollable {
@@ -33,14 +32,114 @@
         li:hover {
             background-color: #f0f0f0;
         }
+
+        /* Style pour le thème sombre */
+        .dark-theme {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+
+        .dark-theme li {
+            border-bottom: 1px solid #4a5568;
+        }
+
+        .dark-theme li:hover {
+            background-color: #2d3748;
+        }
+
+        /* Style pour le bouton de changement de thème */
+        .theme-toggle-label {
+            position: relative;
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .theme-toggle-input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .theme-toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider {
+            background-color: #4CAF50; /* Green background */
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider:before {
+            transform: translateX(20px);
+        }
     </style>
     <title>Tableau de Bord</title>
 </head>
 
 <body class="bg-zinc-50">
 
-    <div class="flex h-screen">
+    <!-- Header -->
+    <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10"
+        data-te-navbar-ref>
+        <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
+            <!-- Logo -->
+            Deale.com
 
+            <!-- Contenu du header -->
+            <div class="flex items-center space-x-4">
+                <!-- Statistiques -->
+                <a href="#" class="font-bold text-lg">
+                    <span class="[&>svg]:w-5 text-blue-500">
+                        <!-- Icône pour les statistiques -->
+                        📊
+                    </span>
+                </a>
+                <!-- Bouton Message -->
+                <a href="#" class="font-bold text-lg">
+                    <span class="[&>svg]:w-5 text-green-500">
+                        <!-- Icône pour les messages -->
+                        💬
+                    </span>
+                </a>
+                <!-- Bouton Home -->
+                <a href="{{Route('welcome')}}" class="font-bold text-lg">
+                    <span class="[&>svg]:w-5 text-red-500">
+                        <!-- Icône pour le bouton Home -->
+                        🏠
+                    </span>
+                </a>
+
+                <!-- Thème Toggle -->
+                <div class="theme-toggle-label flex items-center">
+                    <label for="themeToggle" class="mr-2 text-gray-600">Thème sombre</label>
+                    <input type="checkbox" id="themeToggle" class="theme-toggle-input">
+                    <div class="theme-toggle-slider"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="flex h-screen">
         <!-- Partie 1 (20%) -->
         <div class="w-1/5 p-4 overflow-auto bg-white rounded-lg scrollable">
             <button class="bg-blue-500 text-white p-2 mb-4 rounded-md">Vendre : un nouveau produit</button>
@@ -55,8 +154,14 @@
 
         <!-- Partie 2 (55%) -->
         <div class="w-3/5 p-4 max-h-full overflow-auto bg-white rounded-lg scrollable">
-            <!-- Graphique en chandeliers -->
-            <canvas id="graphiqueChandeliers" class="mb-4"></canvas>
+            <!-- Graphique en ligne -->
+            <canvas id="graphiqueLigne" class="mb-4"></canvas>
+
+            <!-- Graphique en secteurs -->
+            <canvas id="graphiqueSecteurs" class="mb-4"></canvas>
+
+            <!-- Graphique en Gantt -->
+            <canvas id="graphiqueGantt"></canvas>
         </div>
 
         <!-- Partie 3 (25%) -->
@@ -70,98 +175,77 @@
                 <!-- ... -->
             </ul>
         </div>
-
     </div>
 
-    <script>
-        // Votre code JavaScript Chart.js et Candlestick ici...
-var barCount = 60;
-var initialDateStr = '01 Apr 2017 00:00 Z';
-var ctxChandeliers = document.getElementById('graphiqueChandeliers').getContext('2d');
-ctxChandeliers.canvas.width = 800;
-ctxChandeliers.canvas.height = 400;
-
-var barData = getRandomData(initialDateStr, barCount);
-
-var chart = new Chart(ctxChandeliers, {
-    type: 'candlestick',
-    data: {
+ <!-- Script JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Code Chart.js pour générer des graphiques factices
+      var ctxLigne = document.getElementById('graphiqueLigne').getContext('2d');
+      var ctxSecteurs = document.getElementById('graphiqueSecteurs').getContext('2d');
+      var ctxGantt = document.getElementById('graphiqueGantt').getContext('2d');
+  
+      var dataLigne = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
         datasets: [{
-            label: 'CHRT - a random curve',
-            data: barData
+          label: 'Ventes Mensuelles',
+          data: [50, 60, 70, 80, 90],
+          borderColor: 'blue',
+          fill: false,
         }]
-    }
-});
-
-function getRandomData(dateStr, count) {
-    var date = luxon.DateTime.fromRFC2822(dateStr);
-    var data = [randomBar(date, 30)];
-    while (data.length < count) {
-        date = date.plus({ days: 1 });
-        if (date.weekday <= 5) {
-            data.push(randomBar(date, data[data.length - 1].c));
+      };
+  
+      var dataSecteurs = {
+        labels: ['Catégorie A', 'Catégorie B', 'Catégorie C'],
+        datasets: [{
+          data: [30, 40, 30],
+          backgroundColor: ['red', 'green', 'blue'],
+        }]
+      };
+  
+      var dataGantt = {
+        labels: ['Projet 1'],
+        datasets: [{
+          label: 'Projet 1',
+          data: [{
+            x: '2024-02-01',
+            y: '2024-02-10'
+          }]
+        }]
+      };
+  
+      var configLigne = { type: 'line', data: dataLigne };
+      var configSecteurs = { type: 'doughnut', data: dataSecteurs };
+      var configGantt = { type: 'bar', data: dataGantt };
+  
+      new Chart(ctxLigne, configLigne);
+      new Chart(ctxSecteurs, configSecteurs);
+      new Chart(ctxGantt, configGantt);
+  
+      // Vérifiez si le thème sombre est activé dans localStorage
+      var isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+  
+      // Appliquez le thème sombre si nécessaire
+      if (isDarkMode) {
+        document.body.classList.add('dark-theme');
+      }
+  
+      // Ajoutez un écouteur d'événements pour basculer le thème sombre
+      var themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('change', function () {
+        var body = document.body;
+        body.classList.toggle('dark-theme');
+  
+        // Mettez à jour la préférence utilisateur dans localStorage
+        if (body.classList.contains('dark-theme')) {
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          localStorage.setItem('darkMode', 'disabled');
         }
-    }
-    return data;
-}
-
-function randomBar(date, lastClose) {
-    var open = +randomNumber(lastClose * 0.95, lastClose * 1.05).toFixed(2);
-    var close = +randomNumber(open * 0.95, open * 1.05).toFixed(2);
-    var high = +randomNumber(Math.max(open, close), Math.max(open, close) * 1.1).toFixed(2);
-    var low = +randomNumber(Math.min(open, close) * 0.9, Math.min(open, close)).toFixed(2);
-    return {
-        t: date.valueOf(),
-        o: open,
-        h: high,
-        l: low,
-        c: close
-    };
-}
-
-function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-function update() {
-    var dataset = chart.config.data.datasets[0];
-    var mixed = document.getElementById('mixed').value;
-    if (mixed === 'true') {
-        chart.config.data.datasets = [
-            {
-                label: 'CHRT - a random curve',
-                data: barData
-            },
-            {
-                label: 'Close price',
-                type: 'line',
-                data: lineData()
-            }
-        ]
-    } else {
-        chart.config.data.datasets = [
-            {
-                label: 'CHRT - a random curve',
-                data: barData
-            }
-        ]
-    }
-
-    chart.update();
-}
-
-document.getElementById('update').addEventListener('click', update);
-
-document.getElementById('randomizeData').addEventListener('click', function () {
-    barData = getRandomData(initialDateStr, barCount);
-    update();
-});
-
-function lineData() {
-    return barData.map(d => { return { x: d.t, y: d.c } });
-}
-
-    </script>
+      });
+    });
+  </script>
+  
 </body>
 
 </html>
