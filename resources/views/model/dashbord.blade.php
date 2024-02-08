@@ -34,24 +34,29 @@
         }
 
         /* Style pour le thème sombre */
-        .dark-theme {
-            background-color: #1a202c;
-            color: #cbd5e0;
-        }
+/* Style pour le thème sombre */
+.dark-theme body,
+.dark-theme main {
+    background-color: #1a202c !important;
+    color: #cbd5e0 !important;
+}
 
-        .dark-theme li {
-            border-bottom: 1px solid #4a5568;
-        }
+.dark-theme li {
+    border-bottom: 1px solid #4a5568;
+}
 
-        .dark-theme li:hover {
-            background-color: #2d3748;
-        }
+.dark-theme li:hover {
+    background-color: #2d3748;
+}
+.dark-theme #main {
+    background-color: #1a202c;
+}
+
 
         /* Style pour le bouton de changement de thème */
-        .theme-toggle-label {
-            position: relative;
+        .theme-toggle-container {
             display: inline-block;
-            margin-left: 10px;
+            position: relative;
             cursor: pointer;
         }
 
@@ -85,20 +90,105 @@
         }
 
         .theme-toggle-input:checked + .theme-toggle-slider {
-            background-color: #4CAF50; /* Green background */
+            background-color: #4CAF50;
         }
 
         .theme-toggle-input:checked + .theme-toggle-slider:before {
             transform: translateX(20px);
         }
+        /* Animation pour le thème sombre */
+        .theme-toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider {
+            background-color: #4CAF50; /* Green background */
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider:before {
+            transform: translateX(20px);
+            background-color: #1a202c; /* Dark mode background color */
+        }
+        /* Style pour le bouton de changement de thème */
+        .theme-toggle-container {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .theme-toggle-input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .theme-toggle-slider {
+            position: relative;
+            width: 30px; /* Ajustez la largeur selon vos préférences */
+            height: 15px; /* Ajustez la hauteur selon vos préférences */
+            background-color: #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 11px;
+            width: 11px;
+            left: 4px;
+            bottom: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider {
+            background-color: #4CAF50; /* Green background */
+        }
+
+        .theme-toggle-input:checked + .theme-toggle-slider:before {
+            transform: translateX(15px);
+            background-color: #1a202c; /* Dark mode background color */
+        }
+
+        /* Styles pour le header */
+        .header {
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .dark-theme .header {
+            background-color: #1a202c;
+        }
+
     </style>
     <title>Tableau de Bord</title>
 </head>
 
-<body class="bg-zinc-50">
+<body>
 
     <!-- Header -->
-    <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10"
+    <nav class="flex-no-wrap relative flex w-full items-center justify-between py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10 header"
         data-te-navbar-ref>
         <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
             <!-- Logo -->
@@ -129,17 +219,17 @@
                 </a>
 
                 <!-- Thème Toggle -->
-                <div class="theme-toggle-label flex items-center">
-                    <label for="themeToggle" class="mr-2 text-gray-600">Thème sombre</label>
+                <div class="theme-toggle-container">
                     <input type="checkbox" id="themeToggle" class="theme-toggle-input">
-                    <div class="theme-toggle-slider"></div>
+                    <label for="themeToggle" class="theme-toggle-slider"></label>
+                    <label for="themeToggle" class="ml-2 text-gray-600">Thème sombre</label>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Contenu principal -->
-    <div class="flex h-screen">
+    <main id="main" class="flex h-screen">
         <!-- Partie 1 (20%) -->
         <div class="w-1/5 p-4 overflow-auto bg-white rounded-lg scrollable">
             <button class="bg-blue-500 text-white p-2 mb-4 rounded-md">Vendre : un nouveau produit</button>
@@ -175,77 +265,83 @@
                 <!-- ... -->
             </ul>
         </div>
-    </div>
+    </main>
 
- <!-- Script JavaScript -->
+    <!-- Script JavaScript -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Code Chart.js pour générer des graphiques factices
-      var ctxLigne = document.getElementById('graphiqueLigne').getContext('2d');
-      var ctxSecteurs = document.getElementById('graphiqueSecteurs').getContext('2d');
-      var ctxGantt = document.getElementById('graphiqueGantt').getContext('2d');
-  
-      var dataLigne = {
+document.addEventListener("DOMContentLoaded", function () {
+    // Code Chart.js pour générer des graphiques factices
+    var ctxLigne = document.getElementById('graphiqueLigne').getContext('2d');
+    var ctxSecteurs = document.getElementById('graphiqueSecteurs').getContext('2d');
+    var ctxGantt = document.getElementById('graphiqueGantt').getContext('2d');
+
+    var dataLigne = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
         datasets: [{
-          label: 'Ventes Mensuelles',
-          data: [50, 60, 70, 80, 90],
-          borderColor: 'blue',
-          fill: false,
+            label: 'Ventes Mensuelles',
+            data: [50, 60, 70, 80, 90],
+            borderColor: 'blue',
+            fill: false,
         }]
-      };
-  
-      var dataSecteurs = {
+    };
+
+    var dataSecteurs = {
         labels: ['Catégorie A', 'Catégorie B', 'Catégorie C'],
         datasets: [{
-          data: [30, 40, 30],
-          backgroundColor: ['red', 'green', 'blue'],
+            data: [30, 40, 30],
+            backgroundColor: ['red', 'green', 'blue'],
         }]
-      };
-  
-      var dataGantt = {
+    };
+
+    var dataGantt = {
         labels: ['Projet 1'],
         datasets: [{
-          label: 'Projet 1',
-          data: [{
-            x: '2024-02-01',
-            y: '2024-02-10'
-          }]
+            label: 'Projet 1',
+            data: [{
+                x: '2024-02-01',
+                y: '2024-02-10'
+            }]
         }]
-      };
-  
-      var configLigne = { type: 'line', data: dataLigne };
-      var configSecteurs = { type: 'doughnut', data: dataSecteurs };
-      var configGantt = { type: 'bar', data: dataGantt };
-  
-      new Chart(ctxLigne, configLigne);
-      new Chart(ctxSecteurs, configSecteurs);
-      new Chart(ctxGantt, configGantt);
-  
-      // Vérifiez si le thème sombre est activé dans localStorage
-      var isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-  
-      // Appliquez le thème sombre si nécessaire
-      if (isDarkMode) {
-        document.body.classList.add('dark-theme');
-      }
-  
-      // Ajoutez un écouteur d'événements pour basculer le thème sombre
-      var themeToggle = document.getElementById('themeToggle');
-      themeToggle.addEventListener('change', function () {
-        var body = document.body;
+    };
+
+    var configLigne = { type: 'line', data: dataLigne };
+    var configSecteurs = { type: 'doughnut', data: dataSecteurs };
+    var configGantt = { type: 'bar', data: dataGantt };
+
+    new Chart(ctxLigne, configLigne);
+    new Chart(ctxSecteurs, configSecteurs);
+    new Chart(ctxGantt, configGantt);
+
+    // Vérifiez si le thème sombre est activé dans localStorage
+    var isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+
+    // Appliquez le thème sombre si nécessaire
+    var body = document.body;
+    var main = document.querySelector('#main');
+
+    if (isDarkMode) {
+        body.classList.add('dark-theme');
+        main.classList.add('dark-theme');
+    }
+
+    // Ajoutez un écouteur d'événements pour basculer le thème sombre
+    var themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('change', function () {
         body.classList.toggle('dark-theme');
-  
+        main.classList.toggle('dark-theme');
+
         // Mettez à jour la préférence utilisateur dans localStorage
         if (body.classList.contains('dark-theme')) {
-          localStorage.setItem('darkMode', 'enabled');
+            localStorage.setItem('darkMode', 'enabled');
         } else {
-          localStorage.setItem('darkMode', 'disabled');
+            localStorage.setItem('darkMode', 'disabled');
         }
-      });
     });
-  </script>
-  
+
+    // Ajoutez une sortie de console pour le débogage
+    console.log('Dark mode changed:', body.classList.contains('dark-theme'));
+});
+</script>
 </body>
 
 </html>
