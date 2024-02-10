@@ -25,7 +25,10 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
 });
 Route::prefix("/boutique")->controller(dashbordController::class)->name("private.")->group(function(){
-   Route::get("/nom","index");
+   Route::get("/nom","index")->name('stat');
+   Route::get("/home/nom",'home')->name('home');
+   Route::get("/message",'message')->name('message');
+   Route::get("/gerer/nom",'gerer')->name('gerer');
 });
 Route::fallback(function() {
     return view('404');

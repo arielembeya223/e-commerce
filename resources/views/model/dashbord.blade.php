@@ -1,347 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .scrollable {
-            overflow: auto;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            border-bottom: 1px solid #ccc;
-            padding: 8px;
-            transition: background-color 0.3s;
-        }
-
-        li:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Style pour le thème sombre */
-/* Style pour le thème sombre */
-.dark-theme body,
-.dark-theme main {
-    background-color: #1a202c !important;
-    color: #cbd5e0 !important;
-}
-
-.dark-theme li {
-    border-bottom: 1px solid #4a5568;
-}
-
-.dark-theme li:hover {
-    background-color: #2d3748;
-}
-.dark-theme #main {
-    background-color: #1a202c;
-}
-
-
-        /* Style pour le bouton de changement de thème */
-        .theme-toggle-container {
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .theme-toggle-input {
-            opacity: 0;
-            position: absolute;
-        }
-
-        .theme-toggle-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .theme-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: #fff;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider {
-            background-color: #4CAF50;
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider:before {
-            transform: translateX(20px);
-        }
-        /* Animation pour le thème sombre */
-        .theme-toggle-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .theme-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: #fff;
-            border-radius: 50%;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider {
-            background-color: #4CAF50; /* Green background */
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider:before {
-            transform: translateX(20px);
-            background-color: #1a202c; /* Dark mode background color */
-        }
-        /* Style pour le bouton de changement de thème */
-        .theme-toggle-container {
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .theme-toggle-input {
-            opacity: 0;
-            position: absolute;
-        }
-
-        .theme-toggle-slider {
-            position: relative;
-            width: 30px; /* Ajustez la largeur selon vos préférences */
-            height: 15px; /* Ajustez la hauteur selon vos préférences */
-            background-color: #ccc;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .theme-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 11px;
-            width: 11px;
-            left: 4px;
-            bottom: 2px;
-            background-color: #fff;
-            border-radius: 50%;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider {
-            background-color: #4CAF50; /* Green background */
-        }
-
-        .theme-toggle-input:checked + .theme-toggle-slider:before {
-            transform: translateX(15px);
-            background-color: #1a202c; /* Dark mode background color */
-        }
-
-        /* Styles pour le header */
-        .header {
-            background-color: #fff;
-            transition: background-color 0.3s;
-        }
-
-        .dark-theme .header {
-            background-color: #1a202c;
-        }
-
-    </style>
-    <title>Tableau de Bord</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez l'univers enchanteresque de LushiShop, votre destination incontournable pour des expériences shopping uniques. Parcourez notre sélection soigneusement curated, où la qualité rencontre l'élégance. Trouvez le bonheur dans chaque achat, avec des produits tendance et irrésistibles qui font de chaque instant une occasion spéciale. Explorez LushiShop aujourd'hui et laissez-vous emporter par la magie du shopping en ligne.">
+  <meta name="keywords" content="Achats en ligne Lubumbashi Magasin en ligne Lubumbashi Commerce électronique RDC Livraison à domicile Lubumbashi Offres spéciales Lubumbashi Produits locaux Lubumbashi Panier d'achat Lubumbashi Mode en ligne Lubumbashi Électronique Lubumbashi Vêtements Lubumbashi Meubles Lubumbashi Accessoires de maison Lubumbashi Supermarché en ligne Lubumbashi Deals du jour Lubumbashi Boutique virtuelle Lubumbashi Marques populaires Lubumbashi Vente flash Lubumbashi Promotions Lubumbashi Nouveautés Lubumbashi Comparaison de prix Lubumbashi Paiement sécurisé Lubumbashi Retours faciles Lubumbashi Service client réactif Lubumbashi Boutique de beauté Lubumbashi Épicerie en ligne Lubumbashi Gadget technologique Lubumbashi Articles pour la maison Lubumbashi Jouets pour enfants Lubumbashi Boutique de sport Lubumbashi Idées cadeaux Lubumbashi">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/css/themes/splide-default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+  <title>Tableau de Bord</title>
 </head>
 
-<body>
+<body class="bg-gray-100 font-sans">
 
     <!-- Header -->
-    <nav class="flex-no-wrap relative flex w-full items-center justify-between py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10 header"
-        data-te-navbar-ref>
-        <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
+    <nav class="bg-white py-6 shadow-md mb-4">
+        <div class="container mx-auto flex items-center justify-between">
             <!-- Logo -->
-            Deale.com
+            <span class="text-xl font-bold">Boutique</span>
 
-            <!-- Contenu du header -->
-            <div class="flex items-center space-x-4">
-                <!-- Statistiques -->
-                <a href="#" class="font-bold text-lg">
-                    <span class="[&>svg]:w-5 text-blue-500">
-                        <!-- Icône pour les statistiques -->
-                        📊
-                    </span>
-                </a>
-                <!-- Bouton Message -->
-                <a href="#" class="font-bold text-lg">
-                    <span class="[&>svg]:w-5 text-green-500">
-                        <!-- Icône pour les messages -->
-                        💬
-                    </span>
-                </a>
-                <!-- Bouton Home -->
-                <a href="{{Route('welcome')}}" class="font-bold text-lg">
-                    <span class="[&>svg]:w-5 text-red-500">
-                        <!-- Icône pour le bouton Home -->
-                        🏠
-                    </span>
-                </a>
+     <!-- Menu hamburger pour les petits écrans -->
+       <div class="lg:hidden ml-2">
+         <button id="menu-toggle" class="text-gray-500 focus:outline-none ml-2">
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                 class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"></path>
+             </svg>
+         </button>
+        </div>
 
-                <!-- Thème Toggle -->
-                <div class="theme-toggle-container">
-                    <input type="checkbox" id="themeToggle" class="theme-toggle-input">
-                    <label for="themeToggle" class="theme-toggle-slider"></label>
-                    <label for="themeToggle" class="ml-2 text-gray-600">Thème sombre</label>
-                </div>
+            <!-- Liens de navigation avec des icônes Heroicons SVG -->
+            <div class="hidden lg:flex space-x-4">
+                <a href="{{Route('private.gerer')}}" class="flex items-center text-indigo-950 hover:text-red-700">
+                    <!-- Icône pour le bouton Accueil -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                      </svg>                      
+                    produits
+                </a>
+                <a href="{{Route('private.stat')}}" class="flex items-center text-blue-500 hover:text-blue-700">
+                    <!-- Icône pour les statistiques -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                    </svg>stat
+                </a>
+                <a href="{{Route('private.message')}}" class="flex items-center text-green-500 hover:text-green-700">
+                    <!-- Icône pour les messages -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                    </svg>
+                    message
+                </a>
+                <a href="{{Route('private.home')}}" class="flex items-center text-red-500 hover:text-red-700">
+                    <!-- Icône pour le bouton Accueil -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                      </svg>                      
+                    profil
+                </a>
             </div>
         </div>
+
+        <!-- Liste déroulante pour les petits écrans -->
+        <div id="menu" class="lg:hidden hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Statistiques</a>
+            <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Messages</a>
+            <a href="{{Route('welcome')}}"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Accueil</a>
+        </div>
     </nav>
-
-    <!-- Contenu principal -->
-    <main id="main" class="flex h-screen">
-        <!-- Partie 1 (20%) -->
-        <div class="w-1/5 p-4 overflow-auto bg-white rounded-lg scrollable">
-            <button class="bg-blue-500 text-white p-2 mb-4 rounded-md">Vendre : un nouveau produit</button>
-            <ul>
-                <!-- Liste des anciens produits -->
-                <li class="mb-2">Produit 1</li>
-                <li class="mb-2">Produit 2</li>
-                <li class="mb-2">Produit 3</li>
-                <!-- ... -->
-            </ul>
-        </div>
-
-        <!-- Partie 2 (55%) -->
-        <div class="w-3/5 p-4 max-h-full overflow-auto bg-white rounded-lg scrollable">
-            <!-- Graphique en ligne -->
-            <canvas id="graphiqueLigne" class="mb-4"></canvas>
-
-            <!-- Graphique en secteurs -->
-            <canvas id="graphiqueSecteurs" class="mb-4"></canvas>
-
-            <!-- Graphique en Gantt -->
-            <canvas id="graphiqueGantt"></canvas>
-        </div>
-
-        <!-- Partie 3 (25%) -->
-        <div class="w-1/5 p-4 overflow-auto bg-white rounded-lg scrollable">
-            <button class="bg-green-500 text-white p-2 mb-4 rounded-md">Faire une annonce</button>
-            <ul>
-                <!-- Liste des messages des clients -->
-                <li class="mb-2">Message 1</li>
-                <li class="mb-2">Message 2</li>
-                <li class="mb-2">Message 3</li>
-                <!-- ... -->
-            </ul>
-        </div>
-    </main>
-
-    <!-- Script JavaScript -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Code Chart.js pour générer des graphiques factices
-    var ctxLigne = document.getElementById('graphiqueLigne').getContext('2d');
-    var ctxSecteurs = document.getElementById('graphiqueSecteurs').getContext('2d');
-    var ctxGantt = document.getElementById('graphiqueGantt').getContext('2d');
-
-    var dataLigne = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-            label: 'Ventes Mensuelles',
-            data: [50, 60, 70, 80, 90],
-            borderColor: 'blue',
-            fill: false,
-        }]
-    };
-
-    var dataSecteurs = {
-        labels: ['Catégorie A', 'Catégorie B', 'Catégorie C'],
-        datasets: [{
-            data: [30, 40, 30],
-            backgroundColor: ['red', 'green', 'blue'],
-        }]
-    };
-
-    var dataGantt = {
-        labels: ['Projet 1'],
-        datasets: [{
-            label: 'Projet 1',
-            data: [{
-                x: '2024-02-01',
-                y: '2024-02-10'
-            }]
-        }]
-    };
-
-    var configLigne = { type: 'line', data: dataLigne };
-    var configSecteurs = { type: 'doughnut', data: dataSecteurs };
-    var configGantt = { type: 'bar', data: dataGantt };
-
-    new Chart(ctxLigne, configLigne);
-    new Chart(ctxSecteurs, configSecteurs);
-    new Chart(ctxGantt, configGantt);
-
-    // Vérifiez si le thème sombre est activé dans localStorage
-    var isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-
-    // Appliquez le thème sombre si nécessaire
-    var body = document.body;
-    var main = document.querySelector('#main');
-
-    if (isDarkMode) {
-        body.classList.add('dark-theme');
-        main.classList.add('dark-theme');
+    <div id="loader-container">
+        <div id="loader"></div>
+       </div>
+    <style>
+        /* style du loader  */
+    #loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        display: none; /* Cachez le loader par défaut */
     }
-
-    // Ajoutez un écouteur d'événements pour basculer le thème sombre
-    var themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('change', function () {
-        body.classList.toggle('dark-theme');
-        main.classList.toggle('dark-theme');
-
-        // Mettez à jour la préférence utilisateur dans localStorage
-        if (body.classList.contains('dark-theme')) {
-            localStorage.setItem('darkMode', 'enabled');
-        } else {
-            localStorage.setItem('darkMode', 'disabled');
-        }
-    });
-
-    // Ajoutez une sortie de console pour le débogage
-    console.log('Dark mode changed:', body.classList.contains('dark-theme'));
-});
-</script>
+    
+    #loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+        </style>
+        <!-- scripte du loader -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var loaderContainer = document.getElementById('loader-container');
+      
+            function showLoader() {
+                loaderContainer.style.display = 'flex';
+            }
+      
+            function hideLoader() {
+                loaderContainer.style.display = 'none';
+            }
+      
+            document.querySelectorAll('a').forEach(function (link) {
+                // Vérifier si le lien a la classe "no-loader"
+                if (!link.classList.contains('no-loader')) {
+                    link.addEventListener('click', showLoader);
+                }
+            });
+      
+            // masquer le loader une fois que la nouvelle page est chargée.
+            window.addEventListener('load', hideLoader);
+      
+            // Écouteur d'événements pour détecter le changement de l'historique de navigation
+            window.addEventListener('popstate', hideLoader);
+      
+            // Écouteur d'événements pour détecter le chargement de la page depuis la cache
+            window.addEventListener('pageshow', function(event) {
+                // Si la page est chargée depuis la cache, masquer le loader
+                if (event.persisted) {
+                    hideLoader();
+                }
+            });
+        });
+      </script>
+    @yield('content')
 </body>
 
 </html>
