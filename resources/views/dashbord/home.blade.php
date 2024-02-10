@@ -49,7 +49,17 @@
                         </button>
                         <!-- Liste déroulante des options -->
                         <div id="options{{ $i }}"
-                            class="hidden absolute top-0 right-0 mt-8 bg-white border border-gray-200 rounded-md shadow-md">
+                            class="hidden absolute top-0 right-0 mt-8 bg-white border border-gray-200 rounded-md shadow-md p-2">
+                            <button
+                                class="ml-auto text-gray-500 hover:text-red-500 focus:outline-none"
+                                onclick="closeOptions({{ $i }})"
+                            >
+                                <!-- Icône de croix -->
+                                <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path
+                                        d="M6.72 6.72a1 1 0 0 1 1.42 0L10 8.59l1.86-1.87a1 1 0 0 1 1.41 1.41L11.41 10l1.87 1.86a1 1 0 0 1-1.41 1.41L10 11.41l-1.86 1.87a1 1 0 0 1-1.42-1.42L8.59 10 6.72 8.13a1 1 0 0 1 0-1.41z" />
+                                </svg>
+                            </button>
                             <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100"
                                 onclick="deleteArticle({{ $i }})"
                             >
@@ -57,18 +67,6 @@
                             </a>
                             <a href="#" class="block px-4 py-2 text-blue-500 hover:bg-gray-100">Modifier</a>
                         </div>
-                        <!-- Bouton pour fermer la liste déroulante -->
-                        <button
-                            class="hidden group-hover:block focus:outline-none"
-                            onclick="closeOptions({{ $i }})"
-                        >
-                            <!-- Icône de croix -->
-                            <svg class="text-gray-500 w-4 h-4 group-hover:text-black transition-colors duration-300"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path
-                                    d="M6.72 6.72a1 1 0 0 1 1.42 0L10 8.59l1.86-1.87a1 1 0 0 1 1.41 1.41L11.41 10l1.87 1.86a1 1 0 0 1-1.41 1.41L10 11.41l-1.86 1.87a1 1 0 0 1-1.42-1.42L8.59 10 6.72 8.13a1 1 0 0 1 0-1.41z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             @endfor
