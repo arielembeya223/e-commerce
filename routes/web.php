@@ -29,6 +29,7 @@ Route::prefix("/boutique")->controller(dashbordController::class)->name("private
    Route::get("/home/nom",'home')->name('home');
    Route::get("/message",'message')->name('message');
    Route::get("/gerer/nom",'gerer')->name('gerer');
+   Route::get("/compte",'compte')->name('compte');
 });
 Route::fallback(function() {
     return view('404');

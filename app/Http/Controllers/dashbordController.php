@@ -22,4 +22,8 @@ class dashbordController extends Controller
     {
         return view('dashbord.gerer');
     }
+    public function compte()
+    {
+        return view('dashbord.compte');
+    }
 }

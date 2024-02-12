@@ -83,7 +83,6 @@
             const options = document.getElementById(`options${index}`);
             options.classList.add('hidden');
         }
-
         function deleteArticle(index) {
             alert(`Supprimer l'article ${index}`);
         }
