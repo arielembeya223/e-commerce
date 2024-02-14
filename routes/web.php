@@ -22,6 +22,7 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get("/users",'users')->name("users");
     Route::get('/connection','connection')->name('connection');
     Route::get("/boutique",'boutique')->name('boutique');
+    Route::post("/boutique",'newBoutique')->name('newBoutique');//route qui cree une nouvelle boutique
     Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
 });
 Route::prefix("/boutique")->controller(dashbordController::class)->name("private.")->group(function(){
@@ -29,6 +30,7 @@ Route::prefix("/boutique")->controller(dashbordController::class)->name("private
    Route::get("/home/nom",'home')->name('home');
    Route::get("/message",'message')->name('message');
    Route::get("/gerer/nom",'gerer')->name('gerer');
+   Route::post("/gerer/nom",'newProducts')->name('newProducts');//route qui insere le produit dans la base de donnees
    Route::get("/compte",'compte')->name('compte');
 });
 Route::fallback(function() {

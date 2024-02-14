@@ -1,21 +1,26 @@
 @extends('model.base')
 @section('content')
-
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 
 <main class="bg-gray-100 min-h-screen flex justify-center items-center">
     <div class="bg-white p-8 rounded-md shadow-md w-full sm:w-max md:w-128 lg:w-144 mt-8 md:mt-0 mx-4 mb-8">
         <h2 class="text-2xl font-semibold mb-4">Création de Boutique</h2>
 
-        <form action="" method="POST" class="w-full max-w-lg mx-auto md:flex md:flex-wrap">
+        <form action="{{ route('public.newBoutique') }}" method="POST" class="w-full max-w-lg mx-auto md:flex md:flex-wrap" enctype="multipart/form-data">
             @csrf
-
             <div class="flex flex-col md:flex-row w-full mb-4">
                 <!-- Nom de la boutique -->
                 <div class="w-full md:w-1/2 pr-2 mb-4 md:mb-0">
                     <label for="nom" class="block text-sm font-medium text-gray-600">Nom de la Boutique</label>
                     <input type="text" id="nom" name="nom" class="mt-1 p-2 border rounded-md w-full">
                 </div>
-
+                @error('nom')
+    <div class="text-red-500">{{ $message }}</div>
+@enderror
                 <!-- Mot de passe -->
                 <div class="w-full md:w-1/2 pl-2">
                     <label for="password" class="block text-sm font-medium text-gray-600 mb-2">Mot de passe</label>
@@ -26,34 +31,47 @@
                     </div>
                 </div>
             </div>
-
+            @error('password')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
             <!-- Email -->
             <div class="mb-4 w-full md:w-1/2">
                 <label for="email" class="block text-sm font-medium text-gray-600 ml-3">Email</label>
                 <input type="email" id="email" name="email" class="mt-1 p-2 border rounded-md w-full ml-3" placeholder="Email de la Boutique">
             </div>
-
+            @error('email')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
             <!-- Numéro de téléphone -->
             <div class="mb-4 w-full md:w-1/2">
                 <label for="telephone" class="block text-sm font-medium text-gray-600 ml-4">Numéro de Téléphone</label>
-                <input type="tel" id="telephone" name="telephone" class="mt-1 p-2 border rounded-md w-full ml-4" placeholder="Numéro de Téléphone">
+                <input type="text" id="telephone" name="numero" class="mt-1 p-2 border rounded-md w-full ml-4" placeholder="Numéro de Téléphone">
             </div>
-
-            <!-- Adresse -->
-            <div class="mb-4 w-full md:w-1/2">
-                <label for="adresse" class="block text-sm font-medium text-gray-600 ml-3">Adresse</label>
-                <input type="text" id="adresse" name="adresse" class="mt-1 p-2 border rounded-md w-full ml-3" placeholder="Adresse de la Boutique">
-            </div>
-
+            @error('numero')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
+         <!-- logo -->
+    <div class="mb-4">
+        <label for="photo_produit" class="block text-sm font-medium text-gray-600 mb-2">logo</label>
+        <label class="cursor-pointer bg-blue-500 mt-4 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 focus:outline-none">
+            Choisissez un fichier
+            <input type="file" id="photo_produit" name="logo">
+        </label>
+    </div>
+          @error('logo')
+          <div class="text-red-500">{{ $message }}</div>
+      @enderror
             <!-- Description -->
             <div class="mb-4 w-full">
                 <label for="description" class="block text-sm font-medium text-gray-600">Description</label>
                 <textarea id="description" name="description" rows="4" class="mt-1 p-2 border rounded-md w-full" placeholder="Description de la Boutique"></textarea>
             </div>
-
+            @error('description')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
             <!-- Bouton Soumettre -->
             <div class="mt-6">
-                <button type="submit" class="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800">Créer la Boutique</button>
+                <input  type="submit" class="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800" value="Créer la Boutique">
             </div>
         </form>
     </div>

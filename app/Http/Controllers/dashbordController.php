@@ -26,4 +26,8 @@ class dashbordController extends Controller
     {
         return view('dashbord.compte');
     }
+    public function newProducts()
+    {
+        
+    }
 }
