@@ -24,6 +24,7 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get("/boutique",'boutique')->name('boutique');
     Route::post("/boutique",'newBoutique')->name('newBoutique');//route qui cree une nouvelle boutique
     Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
+    Route::post("/connect/boutique","boutiqueConnect")->name("boutiqueConnect");//connection a la boutique
 });
 Route::prefix("/boutique")->controller(dashbordController::class)->name("private.")->group(function(){
    Route::get("/nom","index")->name('stat');
@@ -31,7 +32,7 @@ Route::prefix("/boutique")->controller(dashbordController::class)->name("private
    Route::get("/message",'message')->name('message');
    Route::get("/gerer/nom",'gerer')->name('gerer');
    Route::post("/gerer/nom",'newProducts')->name('newProducts');//route qui insere le produit dans la base de donnees
-   Route::get("/compte",'compte')->name('compte');
+   Route::get("/compte-{store}-dashbord",'compte')->name('compte');
 });
 Route::fallback(function() {
     return view('404');

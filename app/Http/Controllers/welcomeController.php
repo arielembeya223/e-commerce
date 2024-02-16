@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\boutiqueRequest;
 use App\Models\picture;
+use App\Models\store;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 class welcomeController extends Controller
 {
     public function index()
@@ -37,6 +39,7 @@ class welcomeController extends Controller
      {
       return view("connectBoutique");
      }
+     //methode qui uppload les images
      private function picture(UploadedFile $file)
      { 
          try {
@@ -51,7 +54,7 @@ class welcomeController extends Controller
      public function newBoutique(boutiqueRequest $request)
      {
      
-         $data = $request->validated(); // Valider les données après la validation du logo
+         $data = $request->validated(); // Valider les données
 
          $image = $this->picture($request->file('image'));
      
@@ -60,10 +63,30 @@ class welcomeController extends Controller
          }
      
          $data['image'] = $image;
-         dd($data);
+
+         $chemin=$data['image'];
+
+        $newpicture=picture::create([
+            'nom'=>$chemin,
+            "chemin"=>$chemin
+         ]);
+         unset($data['image']);
+
+         $data['picture_id']=$newpicture->getKey();
+
+         $password=$data['password'];
+
+         $data['password']=Hash::make($password);
+
+         $store=store::create($data);
+
+         return redirect()->route('private.compte', ['store' => $store->getKey()]);
 
      }
      
-     
+     public function boutiqueConnect()
+     {
+        
+     }
      
 }
