@@ -5,7 +5,15 @@
         display: none;
     }
 </style>
-
+@if(session('errors'))
+    <div class="alert alert-danger">
+        <ul>
+            @foreach(session('errors')->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <main class="bg-gray-100 min-h-screen flex justify-center items-center">
     <div class="bg-white p-8 rounded-md shadow-md w-full sm:w-max md:w-128 lg:w-144 mt-8 md:mt-0 mx-4 mb-8">
         <h2 class="text-2xl font-semibold mb-4">Création de Boutique</h2>
@@ -52,10 +60,10 @@
         @enderror
          <!-- logo -->
     <div class="mb-4">
-        <label for="photo_produit" class="block text-sm font-medium text-gray-600 mb-2">logo</label>
+        <label for="logo" class="block text-sm font-medium text-gray-600 mb-2">image</label>
         <label class="cursor-pointer bg-blue-500 mt-4 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 focus:outline-none">
             Choisissez un fichier
-            <input type="file" id="photo_produit" name="logo">
+            <input type="file"   name="image"  required>
         </label>
     </div>
           @error('logo')
@@ -71,7 +79,7 @@
         @enderror
             <!-- Bouton Soumettre -->
             <div class="mt-6">
-                <input  type="submit" class="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800" value="Créer la Boutique">
+                <button type="submit" class="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800">creer une boutique</button>
             </div>
         </form>
     </div>

@@ -6,7 +6,7 @@ use App\Http\Requests\boutiqueRequest;
 use App\Models\picture;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-
+use Illuminate\Support\Facades\Validator;
 class welcomeController extends Controller
 {
     public function index()
@@ -38,27 +38,32 @@ class welcomeController extends Controller
       return view("connectBoutique");
      }
      private function picture(UploadedFile $file)
-     {
+     { 
          try {
-             $path = $file->store('public');  // Stockez le fichier dans le répertoire 'public'
+             $path = $file->store('public','public');  // Stockez le fichier dans le répertoire 'public'
              return $path;
          } catch (\Exception $e) {
-             return false;
+             return dd($e->getMessage('le probleme est ici'));
+             die();
          }
      }
      
      public function newBoutique(boutiqueRequest $request)
      {
-         $data = $request->validated();
-         $image = $this->picture($request->file('logo'));
+     
+         $data = $request->validated(); // Valider les données après la validation du logo
+
+         $image = $this->picture($request->file('image'));
      
          if ($image === false) {
-             return redirect()->back()->withErrors(['logo' => 'Le téléchargement du logo a échoué.']);
+             return redirect()->back()->withErrors(['image' => 'Le téléchargement du logo a échoué.']);
          }
      
-         $data['logo'] = $image;
+         $data['image'] = $image;
          dd($data);
+
      }
+     
      
      
 }
