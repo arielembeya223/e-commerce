@@ -33,22 +33,21 @@
       <!-- Liens de navigation avec des icônes Heroicons SVG -->
       <div class="hidden lg:flex space-x-4">
         <div class="hidden lg:flex space-x-4">
-          <a href="{{Route('private.compte',['store'=>3])}}" class="flex items-center text-indigo-950 hover:text-red-700">
+          <a href="{{Route('private.compte',['store'=>Auth::user()->id])}}" class="flex items-center text-indigo-950 hover:text-red-700">
             <!-- Icône pour le bouton Accueil -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
             Mon compte
           </a>
-        <a href="{{Route('private.gerer')}}" class="flex items-center text-indigo-950 hover:text-red-700">
-          <!-- Icône pour le bouton Accueil -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-          </svg>produits
-        </a>
-        <a href="{{Route('private.stat')}}" class="flex items-center text-blue-500 hover:text-blue-700">
+          <a href="{{Route('private.gerer',['store'=>Auth::user()->id])}}" class="flex items-center text-indigo-950 hover:text-red-700">
+            <!-- Icône pour le bouton Accueil -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+            produits
+          </a>          
+        <a href="{{Route('private.stat',['store'=>Auth::user()->id])}}" class="flex items-center text-blue-500 hover:text-blue-700">
           <!-- Icône pour les statistiques -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6">
@@ -56,7 +55,7 @@
               d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
           </svg>stat
         </a>
-        <a href="{{Route('private.message')}}" class="flex items-center text-green-500 hover:text-green-700">
+        <a href="{{Route('private.message',['store'=>Auth::user()->id])}}" class="flex items-center text-green-500 hover:text-green-700">
           <!-- Icône pour les messages -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6">
@@ -65,7 +64,7 @@
           </svg>
           message
         </a>
-        <a href="{{Route('private.home')}}" class="flex items-center text-red-500 hover:text-red-700">
+        <a href="{{Route('private.home',['store'=>Auth::user()->id])}}" class="flex items-center text-red-500 hover:text-red-700">
           <!-- Icône pour le bouton Accueil -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6">
@@ -79,9 +78,9 @@
 
     <!-- Liste déroulante pour les petits écrans -->
     <div id="menu" class="lg:hidden hidden">
-      <a href="{{Route('private.stat')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Statistiques</a>
-      <a href="{{Route('private.message')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Messages</a>
-      <a href="{{Route('private.home')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Accueil</a>
+      <a href="{{ route('private.stat', ['store' => Auth::user()->id]) }}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Statistiques</a>
+      <a href="{{Route('private.message',['store'=>Auth::user()->id])}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Messages</a>
+      <a href="{{Route('private.home',['store'=>Auth::user()->id])}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200">Accueil</a>
     </div>
   </nav>
   <div id="loader-container">
@@ -137,11 +136,8 @@
       }
   
       document.querySelectorAll('a').forEach(function (link) {
-        // Vérifier si le lien a la classe "no-loader"
-        if (!link.classList.contains('no-loader')) {
-          link.addEventListener('click', showLoader);
-        }
-      });
+    link.addEventListener('click', showLoader);
+});
 
       // Ajouter un gestionnaire d'événements pour le bouton du menu hamburger
       menuToggle.addEventListener('click', toggleMenu);

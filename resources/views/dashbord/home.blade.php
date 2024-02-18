@@ -4,13 +4,13 @@
     <div class="container mx-auto mt-8 p-4">
         <div class="flex items-center">
             <!-- Photo de profil -->
-            <img src="https://placekitten.com/150/150" alt="Photo de profil"
+            <img src="{{$store->profil($image)}}" alt="Photo de profil"
                 class="w-16 h-16 object-cover rounded-full mr-4">
 
             <!-- Informations de la boutique -->
             <div>
-                <h1 class="text-2xl font-bold">Nom de la Boutique</h1>
-                <p class="text-gray-600">Biographie de la boutique</p>
+                <h1 class="text-2xl font-bold">{{$store->nom}}</h1>
+                <p class="text-gray-600">{{$store->description}}</p>
             </div>
         </div>
 

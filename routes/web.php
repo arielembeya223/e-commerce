@@ -3,7 +3,7 @@
 use App\Http\Controllers\dashbordController;
 use App\Http\Controllers\welcomeController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Middleware\CheckStoreID;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,13 +26,13 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
     Route::post("/connect/boutique","boutiqueConnect")->name("boutiqueConnect");//connection a la boutique
 });
-Route::prefix("/boutique")->controller(dashbordController::class)->name("private.")->group(function(){
-   Route::get("/nom","index")->name('stat');
-   Route::get("/home/nom",'home')->name('home');
-   Route::get("/message",'message')->name('message');
-   Route::get("/gerer/nom",'gerer')->name('gerer');
-   Route::post("/gerer/nom",'newProducts')->name('newProducts');//route qui insere le produit dans la base de donnees
-   Route::get("/compte-{store}-dashbord",'compte')->name('compte');
+Route::prefix("/boutique-{store}")->middleware(['web', 'auth:store',CheckStoreID::class])->controller(dashbordController::class)->name("private.")->group(function(){
+   Route::get("-nom","index")->name('stat');
+   Route::get("-home-nom",'home')->name('home');
+   Route::get("-message",'message')->name('message');
+   Route::get("-gerer-nom",'gerer')->name('gerer');//profil du dashbord
+   Route::post("-gerer-nom",'newProducts')->name('newProducts');//route qui insere le produit dans la base de donnees
+   Route::get("-compte-dashbord",'compte')->name('compte');
 });
 Route::fallback(function() {
     return view('404');

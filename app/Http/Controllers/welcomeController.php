@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\boutiqueRequest;
+use App\Http\Requests\connectRequest;
 use App\Models\picture;
 use App\Models\store;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\support\Facades\Auth;
 class welcomeController extends Controller
 {
     public function index()
@@ -84,9 +86,14 @@ class welcomeController extends Controller
 
      }
      
-     public function boutiqueConnect()
+     public function boutiqueConnect(connectRequest $request)
      {
-        
+        if(Auth::guard('store')->attempt($request->validated())){
+            Session::regenerate();
+            $user=Auth::guard('store')->user();
+            $userID=$user->id;
+            return redirect()->route('private.compte', ['store' => $user->id]);
+        }
      }
      
 }

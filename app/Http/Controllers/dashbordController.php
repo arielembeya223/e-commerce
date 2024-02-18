@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\store;
 use Illuminate\Http\Request;
 
 class dashbordController extends Controller
@@ -10,9 +11,15 @@ class dashbordController extends Controller
     {
         return view('dashbord.stat');
     }
-    public function home()
+    public function home(Request $request)
     {
-        return view("dashbord.home");
+        $id= $request->route('store');
+        
+        $store = Store::findOrFail($id);
+
+        $image=$store->picture->nom;
+    
+        return view("dashbord.home",['store'=>$store,'image'=>$image]);
     }
     public function message()
     {
