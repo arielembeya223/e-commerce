@@ -16,7 +16,7 @@
 
         <!-- Articles à vendre -->
         <div class="mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            @foreach ($products as $product)
+            @foreach ($products as $index => $product)
                 <div class="relative overflow-hidden bg-white rounded-lg shadow-md hover:shadow-xl focus:outline-none">
                     <a href="{{ Route('public.product') }}">
                         <img src="https://thumbs.dreamstime.com/z/sport-de-chaussures-41616578.jpg"
@@ -39,7 +39,7 @@
                     <div class="absolute top-0 right-0 m-2">
                         <button
                             class="group-hover:block focus:outline-none"
-                            onclick="toggleOptions({{ $i }})"
+                            onclick="toggleOptions({{ $index }})"
                         >
                             <!-- Trois points alignés horizontalement -->
                             <svg class="text-gray-500 w-5 h-5 group-hover:text-black transition-colors duration-300"
@@ -48,11 +48,11 @@
                             </svg>
                         </button>
                         <!-- Liste déroulante des options -->
-                        <div id="options{{ $i }}"
+                        <div id="options{{ $index }}"
                             class="hidden absolute top-0 right-0 mt-8 bg-white border border-gray-200 rounded-md shadow-md p-2">
                             <button
                                 class="ml-auto text-gray-500 hover:text-red-500 focus:outline-none"
-                                onclick="closeOptions({{ $i }})"
+                                onclick="closeOptions({{ $index }})"
                             >
                                 <!-- Icône de croix -->
                                 <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -61,7 +61,7 @@
                                 </svg>
                             </button>
                             <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100"
-                                onclick="deleteArticle({{ $i }})"
+                                onclick="deleteArticle({{ $index }})"
                             >
                                 Supprimer
                             </a>
