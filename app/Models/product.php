@@ -13,6 +13,12 @@ class product extends Model
         'description',
         'prix',
         'store_id',
-        'picture_id'
+        'picture_id',
+        'eval'
     ];
+    public function store(){
+
+        return $this->belongsTo(store::class);
+    
+    }
 }

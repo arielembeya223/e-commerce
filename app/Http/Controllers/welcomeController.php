@@ -48,8 +48,7 @@ class welcomeController extends Controller
              $path = $file->store('public','public');  // Stockez le fichier dans le répertoire 'public'
              return $path;
          } catch (\Exception $e) {
-             return dd($e->getMessage('le probleme est ici'));
-             die();
+             return dd($e->getMessage('impossible de telecharger l\' image'));
          }
      }
      
@@ -76,23 +75,43 @@ class welcomeController extends Controller
 
          $data['picture_id']=$newpicture->getKey();
 
+         $credidentials=['nom'=>$data['nom'],'password'=>$data['password']];//donnees de connexion
+         
          $password=$data['password'];
-
+        
          $data['password']=Hash::make($password);
 
          $store=store::create($data);
 
-         return redirect()->route('private.compte', ['store' => $store->getKey()]);
+         Auth::guard('store')->attempt($credidentials);   
+         
+         Session::regenerate();
+         
+         $user=Auth::guard('store')->user();
+         
+         $userID=$user->id;
+         
+         return redirect()->route('private.compte', ['store' => $user->id]);
 
      }
      
      public function boutiqueConnect(connectRequest $request)
      {
         if(Auth::guard('store')->attempt($request->validated())){
+
             Session::regenerate();
+
             $user=Auth::guard('store')->user();
+
             $userID=$user->id;
-            return redirect()->route('private.compte', ['store' => $user->id]);
+
+            $userNom=$user->nom;
+
+            return redirect()->route('private.compte', ['store' => $user->id])->with('success', 'Bon retour ' . $userNom);
+
+        }else{
+
+            return back()->with('errors', 'nom ou mot de passe incorrrect(s)');
         }
      }
      

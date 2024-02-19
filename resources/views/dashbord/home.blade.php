@@ -16,16 +16,16 @@
 
         <!-- Articles à vendre -->
         <div class="mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            @for ($i = 1; $i <= 8; $i++)
+            @foreach ($products as $product)
                 <div class="relative overflow-hidden bg-white rounded-lg shadow-md hover:shadow-xl focus:outline-none">
                     <a href="{{ Route('public.product') }}">
                         <img src="https://thumbs.dreamstime.com/z/sport-de-chaussures-41616578.jpg"
                             alt="Nom du produit" class="w-full h-48 object-cover transition-transform transform hover:scale-105">
                         <div class="p-4">
-                            <p class="text-xl font-semibold mb-2">Nom du Produit</p>
-                            <p class="text-red-500 font-bold text-lg mb-2">€100,00</p>
+                            <p class="text-xl font-semibold mb-2">{{$product->nom}}</p>
+                            <p class="text-red-500 font-bold text-lg mb-2">{{$product->prix}}</p>
                             <div class="flex items-center">
-                                @for ($j = 1; $j <= 3; $j++)
+                                @for ($j = 1; $j <= $product->eval; $j++)
                                     <svg class="text-yellow-500 w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
                                         <path
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 

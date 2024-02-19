@@ -13,11 +13,16 @@ class store extends Model implements Authenticatable
     use HasFactory, Notifiable;
     
     protected $fillable = ['nom', 'description', 'picture_id', 'numero', 'email', 'password', 'remember_token'];
+    public function products()
+    {
+        return $this->hasMany(product::class,'store_id');
+    }
+    //qui recupere la photo de profil de la boutique
     public function picture()
     {
         return $this->belongsTo(picture::class);
     }
-    //photo de profil de la boutique
+    //affiche la photo de profil de la boutique
     public function profil(string $image):string
     {
       return Storage::disk('public')->url($image);

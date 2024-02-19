@@ -157,6 +157,16 @@
       });
     });
   </script>
+  @if(session('success'))
+  <div class="bg-green-500 text-white p-4 m-4 rounded-md">
+      {{ session('success') }}
+  </div>
+@endif
+@if(session('errors'))
+<div class="bg-green-500 text-white p-4 m-4 rounded-md">
+    {{ session('success') }}
+</div>
+@endif
   @yield('content')
 </body>
 

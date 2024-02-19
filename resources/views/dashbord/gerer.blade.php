@@ -14,23 +14,27 @@
         <h2 class="text-2xl font-semibold mb-4">Publier un Produit</h2>
 
         <!-- Formulaire de publication -->
-        <form action="" method="POST" class="w-full max-w-lg mx-auto">
+        <form action="{{Route('private.newProducts', ['store' => Auth::user()->id])}}" method="POST" class="w-full max-w-lg mx-auto" enctype="multipart/form-data">
             @csrf
 
             <!-- Nom du produit -->
             <div class="mb-4">
                 <label for="nom_produit" class="block text-sm font-medium text-gray-600">Nom du Produit</label>
-                <input type="text" id="nom_produit" name="nom_produit"
+                <input type="text" id="nom_produit" name="nom"
                     class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500">
             </div>
-
+            @error('nom')
+            <div class="text-red-500">{{ $message }}</div>
+           @enderror
             <!-- Description du produit -->
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-600">Description du Produit</label>
                 <textarea id="description" name="description" rows="4"
                     class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"></textarea>
             </div>
-
+            @error('description')
+            <div class="text-red-500">{{ $message }}</div>
+            @enderror
             <!-- Évaluation du produit (étoiles) -->
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-600 mb-2">Évaluation du Produit</label>
@@ -43,24 +47,31 @@
                     @endfor
                 </div>
                 <!-- Ajout d'un champ caché pour stocker la valeur de l'évaluation sélectionnée -->
-                <input type="hidden" id="evaluation" name="evaluation" value="0">
+                <input type="hidden" id="evaluation" name="eval" value="0">
             </div>
-
+            @error('eval')
+            <div class="text-red-500">{{ $message }}</div>
+            @enderror
          <!-- Photo du produit -->
-           <div class="mb-4">
-             <label for="photo_produit" class="block text-sm font-medium text-gray-600 mb-2">Photo du Produit</label>
-               <label class="cursor-pointer bg-blue-500 mt-4 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 focus:outline-none">
-                  Choisissez un fichier
-               <input type="file" id="photo_produit" name="photo_produit" class="hidden" accept="image/*">
-             </label>
-           </div>
+         <div class="mb-4">
+            <label for="logo" class="block text-sm font-medium text-gray-600 mb-2">logo</label>
+            <label class="cursor-pointer bg-blue-500 mt-4 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 focus:outline-none">
+                Choisissez un fichier
+                <input type="file"   name="image" class="hidden"  required>
+            </label>
+        </div>
+        @error('image')
+        <div class="text-red-500">{{ $message }}</div>
+        @enderror
             <!-- Prix du produit -->
             <div class="mb-4">
                 <label for="prix" class="block text-sm font-medium text-gray-600">Prix du Produit</label>
                 <input type="text" id="prix" name="prix"
                     class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500">
             </div>
-
+            @error('prix')
+            <div class="text-red-500">{{ $message }}</div>
+            @enderror
             <!-- Bouton Soumettre -->
             <div class="mt-6">
                 <button type="submit"

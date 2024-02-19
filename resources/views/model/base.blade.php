@@ -185,6 +185,16 @@
           });
       });
     </script>
+      @if(session('success'))
+      <div class="bg-green-500 text-white p-4 m-4 rounded-md">
+          {{ session('success') }}
+      </div>
+    @endif
+    @if(session('errors'))
+    <div class="bg-red-500 text-white p-4 m-4 rounded-md">
+        {{ session('errors') }}
+    </div>
+    @endif
   @yield('content')
   <div id="searchModal" class="fixed inset-0 z-50 hidden overflow-auto bg-black bg-opacity-50">
     <div class="flex items-center justify-center h-full">

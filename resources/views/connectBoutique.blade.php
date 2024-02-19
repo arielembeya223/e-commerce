@@ -13,9 +13,7 @@
                 <label for="nom" class="block text-sm font-medium text-gray-600">Nom de la Boutique</label>
                 <input type="text" id="nom" name="nom" class="mt-1 p-2 border rounded-md w-full" placeholder="Nom de la Boutique" required>
             </div>
-            @error('nom')
-            <div class="text-red-500">{{ $message }}</div>
-         @enderror
+
             <!-- Mot de passe -->
             <div class="mb-6">
                 <label for="password" class="block text-sm font-medium text-gray-600 mb-2">Mot de passe</label>
@@ -25,9 +23,7 @@
                     <label for="showPassword" class="text-sm text-gray-700 cursor-pointer ml-2">Afficher le mot de passe</label>
                 </div>
             </div>
-            @error('mot de passe')
-            <div class="text-red-500">{{ $message }}</div>
-         @enderror
+
             <!-- Bouton Se connecter -->
             <div class="flex justify-center">
                 <button type="submit" class="py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo active:bg-indigo-800">Se connecter</button>
