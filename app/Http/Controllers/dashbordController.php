@@ -24,7 +24,7 @@ class dashbordController extends Controller
 
         $products=$store->products;
    
-    
+       
         return view("dashbord.home",['store'=>$store,'image'=>$image,'products'=> $products]);
     }
     public function message()

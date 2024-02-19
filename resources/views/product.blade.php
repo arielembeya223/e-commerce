@@ -7,24 +7,24 @@
 
         <!-- Partie gauche avec l'image -->
         <div class="lg:w-2/5 flex-shrink-0">
-            <img class="w-full lg:w-80 h-48 object-cover rounded" src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg" alt="Nom du produit">
+            <img class="w-full lg:w-80 h-48 object-cover rounded" src="{{$product->profil($product->picture->nom)}}" alt="Nom du produit">
         </div>
 
         <!-- Partie droite avec les détails -->
         <div class="flex flex-col flex-grow">
 
             <!-- Nom du produit -->
-            <h2 class="text-2xl font-bold mb-2">Nom du Produit</h2>
+            <h2 class="text-2xl font-bold mb-2">{{$product->nom}}</h2>
 
             <!-- Prix -->
-            <p class="text-green-500 text-lg mb-2">€100,00</p>
+            <p class="text-green-500 text-lg mb-2">{{$product->prix}}$</p>
 
             <!-- Description -->
-            <p class="text-gray-700 mb-2">Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="text-gray-700 mb-2">{{$product->description}}</p>
 
             <!-- Étoiles -->
             <div class="flex items-center mb-2">
-                @for ($i = 1; $i <= 5; $i++)
+                @for ($i = 1; $i <= $product->eval; $i++)
                     <svg class="text-yellow-500 w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M10 1l2.4 6.6h6.1l-4.9 4.1 1.9 6.6-5.5-4.2-5.5 4.2 1.9-6.6-4.9-4.1h6.1z"/>
                     </svg>
@@ -48,12 +48,12 @@
             </button>
 
             <!-- Bouton "Appel" -->
-            <button class="flex items-center bg-gray-300 text-gray-700 px-4 py-2 rounded-md focus:outline-none justify-center">
+            <a class="flex items-center bg-gray-300 text-gray-700 px-4 py-2 rounded-md focus:outline-none justify-center no-loader" href="tel:{{$product->store->numero}}">
                 contacter directement le vendeur
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 3.75 18 6m0 0 2.25 2.25M18 6l2.25-2.25M18 6l-2.25 2.25m1.5 13.5c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293 .97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
                 </svg>              
-            </button>
+            </a>
 
         </div>
     </div>

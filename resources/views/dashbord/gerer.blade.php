@@ -54,7 +54,7 @@
             @enderror
          <!-- Photo du produit -->
          <div class="mb-4">
-            <label for="logo" class="block text-sm font-medium text-gray-600 mb-2">logo</label>
+            <label for="logo" class="block text-sm font-medium text-gray-600 mb-2">image du produit</label>
             <label class="cursor-pointer bg-blue-500 mt-4 text-white py-2 px-4 rounded-full text-sm hover:bg-blue-600 focus:outline-none">
                 Choisissez un fichier
                 <input type="file"   name="image" class="hidden"  required>
@@ -65,7 +65,7 @@
         @enderror
             <!-- Prix du produit -->
             <div class="mb-4">
-                <label for="prix" class="block text-sm font-medium text-gray-600">Prix du Produit</label>
+                <label for="prix" class="block text-sm font-medium text-gray-600">Prix du Produit en dollars($)</label>
                 <input type="text" id="prix" name="prix"
                     class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500">
             </div>

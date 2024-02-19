@@ -18,8 +18,8 @@
         <div class="mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             @foreach ($products as $index => $product)
                 <div class="relative overflow-hidden bg-white rounded-lg shadow-md hover:shadow-xl focus:outline-none">
-                    <a href="{{ Route('public.product') }}">
-                        <img src="https://thumbs.dreamstime.com/z/sport-de-chaussures-41616578.jpg"
+                    <a href="{{ Route('public.product',['product'=>$product->id]) }}">
+                        <img src="{{$product->profif($product->picture->nom)}}"
                             alt="Nom du produit" class="w-full h-48 object-cover transition-transform transform hover:scale-105">
                         <div class="p-4">
                             <p class="text-xl font-semibold mb-2">{{$product->nom}}</p>

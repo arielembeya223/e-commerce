@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests\boutiqueRequest;
 use App\Http\Requests\connectRequest;
 use App\Models\picture;
+use App\Models\product;
 use App\Models\store;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -15,11 +16,13 @@ class welcomeController extends Controller
 {
     public function index()
      {
-        return view('welcome');
+        $products=product::all();
+        return view('welcome',['products'=>$products]);
      }
-     public function product()
+     public function product(product $product)
      {
-      return view("product");
+      
+      return view("product",['product'=>$product]);
      }
      public function notif()
      {

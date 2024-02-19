@@ -17,7 +17,7 @@ use App\Http\Middleware\CheckStoreID;
 
 Route::get('/', [welcomeController::class,'index'])->name("welcome");
 Route::prefix('/')->controller(welcomeController::class)->name("public.")->group(function(){
-    Route::get("product","product")->name("product");
+    Route::get("{product}-product","product")->name("product");//qui affiche le produit en particulier
     Route::get("/notifications","notif")->name("notif");
     Route::get("/users",'users')->name("users");
     Route::get('/connection','connection')->name('connection');
