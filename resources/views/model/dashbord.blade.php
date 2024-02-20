@@ -163,7 +163,7 @@
   </div>
 @endif
 @if(session('errors'))
-<div class="bg-green-500 text-white p-4 m-4 rounded-md">
+<div class="bg-red-500 text-white p-4 m-4 rounded-md">
     {{ session('success') }}
 </div>
 @endif

@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\annonceRequest;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\productRequest;
+use App\Models\annonce;
 use App\Models\picture;
 use App\Models\product;
 use App\Models\store;
@@ -22,14 +25,31 @@ class dashbordController extends Controller
 
         $image=$store->picture->nom;
 
-        $products=$store->products;
+        $products = $store->products()->orderBy('created_at', 'desc')->get();
    
        
         return view("dashbord.home",['store'=>$store,'image'=>$image,'products'=> $products]);
     }
-    public function message()
+    public function message(Request $request)
     {
-        return view('dashbord.message');
+        $id= $request->route('store');
+        $annonces = Annonce::where('store_id', $id)
+       ->orderBy('created_at', 'desc')
+       ->get();
+        return view('dashbord.message',['annonces'=>$annonces]);
+    }
+    //publie le message
+    public function postMessage(annonceRequest $request)
+    {
+      $data=$request->validated();
+
+      $id= $request->route('store');
+
+      $data['store_id']=$id;
+
+      annonce::create($data);
+
+      return back()->with('success','annonce publie');
     }
     public function gerer()
     {

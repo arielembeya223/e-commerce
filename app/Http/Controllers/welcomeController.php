@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\boutiqueRequest;
 use App\Http\Requests\connectRequest;
+use App\Models\annonce;
 use App\Models\picture;
 use App\Models\product;
 use App\Models\store;
@@ -16,7 +17,7 @@ class welcomeController extends Controller
 {
     public function index()
      {
-        $products=product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
         return view('welcome',['products'=>$products]);
      }
      public function product(product $product)
@@ -26,7 +27,9 @@ class welcomeController extends Controller
      }
      public function notif()
      {
-      return view('notif');
+      $notifs=annonce::orderBy('created_at', 'desc')->get();
+ 
+      return view('notif',['notifs'=>$notifs]);
      }
      public function users()
      {

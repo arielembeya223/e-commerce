@@ -30,6 +30,7 @@ Route::prefix("/boutique-{store}")->middleware(['web', 'auth:store',CheckStoreID
    Route::get("-nom","index")->name('stat');
    Route::get("-home-nom",'home')->name('home');
    Route::get("-message",'message')->name('message');
+   Route::post("-message",'postMessage')->name('postMessage');//publie l'annonce de la boutique
    Route::get("-gerer-nom",'gerer')->name('gerer');//profil du dashbord
    Route::post("-gerer-nom",'newProducts')->name('newProducts');//route qui insere le produit dans la base de donnees
    Route::get("-compte-dashbord",'compte')->name('compte');

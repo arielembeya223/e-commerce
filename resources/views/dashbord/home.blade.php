@@ -19,7 +19,7 @@
             @foreach ($products as $index => $product)
                 <div class="relative overflow-hidden bg-white rounded-lg shadow-md hover:shadow-xl focus:outline-none">
                     <a href="{{ Route('public.product',['product'=>$product->id]) }}">
-                        <img src="{{$product->profif($product->picture->nom)}}"
+                        <img src="{{$product->profil($product->picture->nom)}}"
                             alt="Nom du produit" class="w-full h-48 object-cover transition-transform transform hover:scale-105">
                         <div class="p-4">
                             <p class="text-xl font-semibold mb-2">{{$product->nom}}</p>

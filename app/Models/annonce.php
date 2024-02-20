@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class annonce extends Model
 {
     use HasFactory;
+    protected $fillable=['store_id','content'];
+    public function store()
+    {
+        return $this->belongsTo(store::class);
+    }
 }
