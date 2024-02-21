@@ -22,14 +22,16 @@
                 
                 <form method="post" action="{{Route('private.postMessage',['store' => Auth::user()->id])}}">
                     @csrf
+                   
+                    <div class="flex items-end">
+                        <textarea type="text" name="content" placeholder="Écrivez votre message"
+                            class="flex-1 sm:w-full md:max-w-20  py-2 px-4 focus:outline-none
+                                @error('content') border-red-500 @enderror"></textarea>
         
-                    <div class="flex items-center">
-                        <input type="text" name="content" placeholder="Écrivez votre message"
-                            class="flex-1 sm:w-full md:max-w-20 border rounded-l-full py-2 px-4 focus:outline-none
-                                @error('content') border-red-500 @enderror">
-        
-                        <button type="submit" class="bg-blue-500 text-white rounded-r-full py-2 px-4 hover:bg-blue-600 focus:outline-none">
-                            Envoyer
+                        <button type="submit" class="text-white rounded-r-full py-2 px-4 hover:bg-blue-600 focus:outline-none">
+                            <svg class="w-6 h-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                              </svg>
                         </button>
                     </div>
         

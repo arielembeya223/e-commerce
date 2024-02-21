@@ -19,7 +19,7 @@
   <nav class="bg-white py-6 shadow-md mb-4">
     <div class="container mx-auto flex items-center justify-between">
       <!-- Logo -->
-      <span class="text-xl font-bold">Boutique</span>
+      <span class="text-xl font-bold">{{Auth::user()->nom}}</span>
 
       <!-- Menu hamburger pour les petits écrans -->
       <div class="lg:hidden mr-6">
@@ -136,8 +136,11 @@
       }
   
       document.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', showLoader);
-});
+              // Vérifier si le lien a la classe "no-loader"
+              if (!link.classList.contains('no-loader')) {
+                  link.addEventListener('click', showLoader);
+              }
+          });
 
       // Ajouter un gestionnaire d'événements pour le bouton du menu hamburger
       menuToggle.addEventListener('click', toggleMenu);

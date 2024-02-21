@@ -60,19 +60,17 @@
 
     <div id="boiteModale" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center m-2">
         <div class="bg-white p-8 max-w-md mx-auto rounded">
+            <!--formulaire de commande-->
             <h2 class="text-2xl font-semibold mb-4">Commander le produit</h2>
-            <form>
+            <form action="{{Route('public.commandeProduct',['product'=>$product->id,'store'=>$product->store->id])}}" method="POST">
+                @csrf
                 <div class="mb-4">
                     <label for="nom" class="block text-sm font-medium text-gray-600">Nom</label>
-                    <input type="text" id="nom" name="nom" placeholder="Votre nom" class="mt-1 p-2 border rounded-md w-full">
+                    <input type="text" id="nom" name="demandeur" placeholder="Votre nom" class="mt-1 p-2 border rounded-md w-full">
                 </div>
                 <div class="mb-4">
                     <label for="numero" class="block text-sm font-medium text-gray-600">Numéro de téléphone</label>
-                    <input type="tel" id="numero" name="numero" placeholder="Votre numéro de téléphone" class="mt-1 p-2 border rounded-md w-full">
-                </div>
-                <div class="mb-4">
-                    <label for="adresse" class="block text-sm font-medium text-gray-600">Adresse</label>
-                    <input type="text" id="adresse" name="adresse" placeholder="Adresse" class="mt-1 p-2 border rounded-md w-full" autocomplete="street-address">
+                    <input type="tel" id="numero" name="numero_demandeur" placeholder="Votre numéro de téléphone" class="mt-1 p-2 border rounded-md w-full">
                 </div>
                 <div class="flex justify-end">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none">Commander</button>
@@ -87,12 +85,13 @@
     <div id="boiteModaleMessage" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center m-2">
         <div class="bg-white p-8 max-w-md mx-auto rounded">
             <h2 class="text-2xl font-semibold mb-4">Envoyer un Message</h2>
-            <form>
+            <form action="{{Route('public.messageProduct',['product'=>$product->id,'store'=>$product->store->id])}}" method="POST">
+                @csrf
                 <div class="mb-4">
                     <label for="nomMessage" class="block text-sm font-medium text-gray-600">Nom</label>
-                    <input type="text" id="nomMessage" name="nomMessage" placeholder="Votre nom" class="mt-1 p-2 border rounded-md w-full">
-                </div>
-                <div class="mb-4">
+                    <input type="text" id="nomMessage" name="nom" placeholder="Votre nom" class="mt-1 p-2 border rounded-md w-full">
+                </div>        
+                <div class="mb-4">            
                     <label for="message" class="block text-sm font-medium text-gray-600">Message</label>
                     <textarea id="message" name="message" placeholder="Votre message" class="mt-1 p-2 border rounded-md w-full"></textarea>
                 </div>

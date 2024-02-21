@@ -25,6 +25,8 @@ Route::prefix('/')->controller(welcomeController::class)->name("public.")->group
     Route::post("/boutique",'newBoutique')->name('newBoutique');//route qui cree une nouvelle boutique
     Route::get("/connect/boutique","connectBoutique")->name("connectBoutique");
     Route::post("/connect/boutique","boutiqueConnect")->name("boutiqueConnect");//connection a la boutique
+    Route::post("{product}-product-commande-{store}","commandeProduct")->name("commandeProduct");//qui cree la commande
+    Route::post("{product}-product-message-{store}","messageProduct")->name("messageProduct");//qui cree le message
 });
 Route::prefix("/boutique-{store}")->middleware(['web', 'auth:store',CheckStoreID::class])->controller(dashbordController::class)->name("private.")->group(function(){
    Route::get("-nom","index")->name('stat');

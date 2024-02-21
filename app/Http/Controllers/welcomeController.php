@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\boutiqueRequest;
+use App\Http\Requests\commandeRequest;
 use App\Http\Requests\connectRequest;
+use App\Http\Requests\messageRequest;
 use App\Models\annonce;
 use App\Models\picture;
 use App\Models\product;
 use App\Models\store;
+use App\Models\Message;
+use App\Models\commande;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
@@ -100,7 +105,30 @@ class welcomeController extends Controller
          return redirect()->route('private.compte', ['store' => $user->id]);
 
      }
-     
+     public function commandeProduct(commandeRequest $request)
+     {
+        $id= $request->route('product');
+
+        $data=$request->validated();
+
+         $data['product_id']=$id;
+
+         commande::create($data);
+
+         return back()->with('success', 'Nous vous felicitons pour cette commande  le vendeur vous contactera pour l\' echange');
+     }
+     public function messageProduct(messageRequest $request,store $id)
+     {
+        $id= $request->route('product');
+
+        $data=$request->validated();
+
+         $data['store_id']=$id;
+
+         Message::create($data);
+
+         return back()->with('success', 'le message a bien ete envoye le vendeur vous contactera tres bientot');
+     }
      public function boutiqueConnect(connectRequest $request)
      {
         if(Auth::guard('store')->attempt($request->validated())){

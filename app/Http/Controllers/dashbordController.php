@@ -10,7 +10,8 @@ use App\Models\picture;
 use App\Models\product;
 use App\Models\store;
 use Illuminate\Http\Request;
-
+use App\Models\Message;
+use App\Models\commande;
 class dashbordController extends Controller
 {
     public function index()
@@ -55,9 +56,20 @@ class dashbordController extends Controller
     {
         return view('dashbord.gerer');
     }
-    public function compte()
+    public function compte(Request $request)
     {
-        return view('dashbord.compte');
+        $id= $request->route('store');
+
+        $messages = Message::where('store_id', $id)
+       ->orderBy('created_at', 'desc')
+       ->get();
+
+       $commandes = Commande::whereHas('product', function ($query) use ($id) {
+        $query->where('store_id', $id);
+    })->orderBy('created_at', 'desc')->get();
+     
+
+        return view('dashbord.compte',['messages'=>$messages,'commandes'=>$commandes]);
     }
          //methode qui uppload les images
     private function picture(UploadedFile $file)
@@ -77,7 +89,7 @@ class dashbordController extends Controller
         $image = $this->picture($request->file('image'));
     
         if ($image === false) {
-            return back()->with('error', 'image invalide');
+            return back()->with('errors', 'image invalide');
         }
     
         $data['image'] = $image;
