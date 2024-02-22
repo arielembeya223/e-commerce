@@ -25,7 +25,7 @@ class productRequest extends FormRequest
             'nom'=>['required','string'],
             'description'=>['required','string'],
             'prix'=>['required','int'],
-            'image' => ['max:2000'],
+            'image' => ['image','max:4000'],
             'eval'=>['required','int']
         ];
     }

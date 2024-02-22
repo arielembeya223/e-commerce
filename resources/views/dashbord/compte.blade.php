@@ -13,18 +13,24 @@
 
     <!-- Liste des Commandes -->
     <ul class="space-y-4">
-        <li>
-            @foreach($commandes as $commande)
-            <div class="flex items-center justify-between">
-                <span class="font-bold">{{$commande->demandeur}}</span>
+        @foreach($commandes as $commande)
+        <li class="border-b pb-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-lg">{{$commande->demandeur}}</span>
                 <span class="text-gray-500">{{$commande->created_at->diffForHumans()}}</span>
             </div>
-            <p><a href="tel:{{$commande->numero_demandeur}}" class="text-blue-500 hover:underline no-loader">contacter l'acheteur</a></p>
-            @endforeach
+            <p class="text-gray-700 mb-2">
+                <span class="text-sm font-semibold text-gray-600">Produit :</span>
+                <span class="ml-2 text-lg font-bold text-indigo-800">{{$commande->product->nom}}</span>
+            </p>
+            <p class="text-blue-500 hover:underline">
+                <a href="tel:{{$commande->numero_demandeur}}" class="no-loader">Contacter l'acheteur</a>
+            </p>
         </li>
-        
+        @endforeach
     </ul>
 </div>
+
             <!-- Section Messages des Clients -->
             <div class="bg-white p-6 rounded-md shadow-md m-2">
                 <h2 class="text-xl font-bold mb-4">Messages des Clients</h2>

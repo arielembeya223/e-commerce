@@ -26,7 +26,7 @@ class boutiqueRequest extends FormRequest
             'password'=>['required','string'],
             'email'=>['required','string'],
              'numero'=>['required','string'],
-             'image' => ['image','max:2000'],
+             'image' => ['image','max:8000'],
              'description'=>['required','string'],
         ];
     }

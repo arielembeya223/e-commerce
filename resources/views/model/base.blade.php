@@ -7,7 +7,7 @@
   <meta name="keywords" content="Achats en ligne Lubumbashi Magasin en ligne Lubumbashi Commerce électronique RDC Livraison à domicile Lubumbashi Offres spéciales Lubumbashi Produits locaux Lubumbashi Panier d'achat Lubumbashi Mode en ligne Lubumbashi Électronique Lubumbashi Vêtements Lubumbashi Meubles Lubumbashi Accessoires de maison Lubumbashi Supermarché en ligne Lubumbashi Deals du jour Lubumbashi Boutique virtuelle Lubumbashi Marques populaires Lubumbashi Vente flash Lubumbashi Promotions Lubumbashi Nouveautés Lubumbashi Comparaison de prix Lubumbashi Paiement sécurisé Lubumbashi Retours faciles Lubumbashi Service client réactif Lubumbashi Boutique de beauté Lubumbashi Épicerie en ligne Lubumbashi Gadget technologique Lubumbashi Articles pour la maison Lubumbashi Jouets pour enfants Lubumbashi Boutique de sport Lubumbashi Idées cadeaux Lubumbashi">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/css/themes/splide-default.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <title>@yield('title','lushishop')</title>
@@ -16,7 +16,7 @@
   <nav class="flex-no-wrap relative flex w-full items-center justify-between bg-white py-6 shadow-md shadow-black/5 mb-0.5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4 sticky top-0 z-10"
     data-te-navbar-ref>
     <div class="mx-auto flex w-full flex-wrap items-center justify-between px-3 lg:container text-gray-500">
-      Deale.com
+      <span class="typed-text font-black">MarketCap</span>
       <div class="relative flex items-center">
         <a href="{{Route('welcome')}}" class="font-bold text-lg mr-3">
           <span class="[&>svg]:w-5">
@@ -37,7 +37,7 @@
         </a>
         <div class="dropdown relative mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           id="cartIcon">
-          <a href="#" class="dropdown-toggle no-loader">
+          <a href="{{ Auth::check() ? route('private.compte', ['store' => Auth::user()->id]) : '#' }}" class="dropdown-toggle no-loader">
             <span class="[&gt;svg]:w-5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -47,10 +47,17 @@
           </a>
           <div id="cartDropdown" class="dropdown-content origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <a href="{{Route('public.boutique')}}" class="  block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
-              >Ouvrir une boutique</a>
-              <a href="{{Route('public.connectBoutique')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem"
-                >Se connecter à la boutique</a>
+              @auth
+              
+            @else
+              {{-- Si l'utilisateur n'est pas connecté, affichez les liens normaux --}}
+              <a href="{{ route('public.boutique') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem">
+                Ouvrir une boutique
+              </a>
+              <a href="{{ route('public.connectBoutique') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem">
+                Se connecter à la boutique
+              </a>
+            @endauth
             </div>
           </div>
         </div>
