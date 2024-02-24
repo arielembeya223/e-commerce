@@ -4,6 +4,8 @@ use App\Http\Controllers\dashbordController;
 use App\Http\Controllers\welcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckStoreID;
+use App\Http\Middleware\search;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +17,9 @@ use App\Http\Middleware\CheckStoreID;
 |
 */
 
-Route::get('/', [welcomeController::class,'index'])->name("welcome");
-Route::prefix('/')->controller(welcomeController::class)->name("public.")->group(function(){
+Route::get('/', [welcomeController::class,'index'])->middleware([search::class])->name("welcome");
+Route::get('/search',[welcomeController::class,'search'])->name("search");
+Route::prefix('/')->controller(welcomeController::class)->middleware([search::class])->name("public.")->group(function(){
     Route::get("{product}-product","product")->name("product");//qui affiche le produit en particulier
     Route::get("/notifications","notif")->name("notif");
     Route::get("/users",'users')->name("users");

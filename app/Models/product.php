@@ -30,4 +30,11 @@ class product extends Model
     {
       return Storage::disk('public')->url($image);
     }
+    
+    public function scopeSearch($query, $term)
+    {
+        
+        return $query->whereRaw("MATCH(nom, description) AGAINST(? IN BOOLEAN MODE)", [$term]);
+        
+    }
 }

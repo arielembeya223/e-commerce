@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <p class="font-semibold">{{$annonce->store->nom}}</p>
-                    <p class="text-gray-600">{{$annonce->content}}</p>
+                    <p class="text-gray-600">{!! nl2br(e($annonce->content)) !!}</p>
                 </div>
             </div>
         </div>

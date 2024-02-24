@@ -20,10 +20,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\support\Facades\Auth;
 class welcomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
      {
         $products = Product::orderBy('created_at', 'desc')->get();
         return view('welcome',['products'=>$products]);
+     }
+     public function search(){
+        return view('search');
      }
      public function product(product $product)
      {

@@ -37,7 +37,7 @@
         </a>
         <div class="dropdown relative mr-4 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
           id="cartIcon">
-          <a href="{{ Auth::check() ? route('private.compte', ['store' => Auth::user()->id]) : '#' }}" class="dropdown-toggle no-loader">
+          <a href="#" class="dropdown-toggle no-loader">
             <span class="[&gt;svg]:w-5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -48,7 +48,9 @@
           <div id="cartDropdown" class="dropdown-content origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
               @auth
-              
+                  <a href="{{route('private.compte', ['store' => Auth::user()->id])}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem">
+                Ma boutique
+              </a>
             @else
               {{-- Si l'utilisateur n'est pas connecté, affichez les liens normaux --}}
               <a href="{{ route('public.boutique') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:bg-sky-700" role="menuitem">
