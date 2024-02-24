@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\annonceRequest;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\productRequest;
@@ -14,10 +14,59 @@ use App\Models\Message;
 use App\Models\commande;
 class dashbordController extends Controller
 {
-    public function index()
+    
+    public function index(Request $request)
     {
-        return view('dashbord.stat');
+        $id= $request->route('store');
+
+       $mois=$this->mois($id);
+
+
+        return view('dashbord.stat',['mois'=>$mois]);
     }
+    private function mois($id): array {
+    
+        $months = [
+            'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+            'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+        ];
+    
+        
+        $monthMapping = [
+            'janvier' => '01',
+            'février' => '02',
+            'mars' => '03',
+            'avril' => '04',
+            'mai' => '05',
+            'juin' => '06',
+            'juillet' => '07',
+            'août' => '08',
+            'septembre' => '09',
+            'octobre' => '10',
+            'novembre' => '11',
+            'décembre' => '12',
+        ];
+    
+        $storeId = $id;
+        
+        $monthlyResults = [];
+    
+        foreach ($months as $month) {
+            
+            $monthNumeric = $monthMapping[$month];
+    
+            $count = DB::table('products')
+                ->join('stores', 'products.store_id', '=', 'stores.id')
+                ->where('products.store_id', $storeId)
+                ->whereMonth(DB::raw('DATE(products.created_at)'), '=', $monthNumeric)
+                ->count();
+    
+                $monthlyResults[] = $count;
+        }
+    
+        return $monthlyResults;
+    }
+    
     public function home(Request $request)
     {
         $id= $request->route('store');
